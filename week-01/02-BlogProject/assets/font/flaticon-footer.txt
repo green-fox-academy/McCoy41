@@ -1,0 +1,8 @@
+<div>
+  <p>Icons have been downloaded from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a><p>
+  <p>Icons have been made by
+    <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>,
+    <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> and
+    <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a>
+  </p>
+</div>

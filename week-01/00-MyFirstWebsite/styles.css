@@ -1,0 +1,84 @@
+/* need to finish boxes and fix header */
+*{
+  margin: 0;
+  padding: 0;
+}
+#banner{
+  background-color: #333333; 
+}
+body{
+  background-image: url(assets/background.png);
+  background-repeat: repeat;
+  background-color: white;
+  font-family: 'Consolas';
+  font-size: 16px;
+}
+#banner img{
+  padding: 10px 0 5px;
+  margin: 0 10%;     
+}
+#banner #links{
+  float: right;
+  padding: 5px 0;
+  margin: 0 10%;
+}
+#banner #links a{
+  color: #ff0099;
+  text-decoration: underline #ff0099;
+  margin-left: 50px;
+  padding: 10px 5px;
+  text-align: center;
+  display: inline-block; 
+}
+#banner #links a:hover{
+  color: #333333;
+  background-color: #cccccc;
+  text-decoration: underline #333333;
+  font-weight: bold;
+}
+#content{
+  margin: 0 10%;
+}
+h1{
+  font-family: 'Merriweather', serif;
+  font-size: 36px;
+  font-weight: bolder;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+h2{
+  font-family: 'Merriweather', serif;
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+}
+h3{
+  font-family: 'Merriweather', serif;
+  font-size: 22px;
+  color: #ff0099;
+  font-weight: normal;
+  margin: 15px 0;
+}
+
+.separator{
+  font-size: 14px;
+  font-weight: bolder;
+  text-align: center;
+  margin: 50px 0;
+}
+p{
+  margin: 15px 0;
+  line-height: 1.2;
+}
+dt{
+  font-family: 'Merriweather', serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 50px 0 10px;
+}
+dd{
+  font-size: 13px;
+  margin: 15px 0;
+  line-height: 1.5;
+  text-align: justify;
+}
