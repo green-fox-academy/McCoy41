@@ -1,1 +1,2 @@
 Hello! This is a file 1!
+Now with strawbery flavour!
