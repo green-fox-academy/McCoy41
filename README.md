@@ -1,4 +1,4 @@
-![McCoy Engineering](./logo.png)  # Repository of Karel Komárek
+# ![McCoy Engineering](./logo.png) Repository of Karel Komárek
 
 ### Welcome to my repository
 _For knowledge, press **Back**. For bugs, keep browsing..._
