@@ -3,6 +3,10 @@
 ### Welcome to my repository
 _For knowledge, press **Back**. For bugs, keep browsing..._
 
+> #### Disclaimer:
+> In this repository, there are declared different rules of _time_. Weeks in this repository start by **Saturday**!
+> This has been done so it's easier to follow the Syllabus structure.
+
 ## Links
 - [Git Training repository](https://github.com/McCoy41/git-lesson-repository)
 - [Personal Webpage repository](https://github.com/McCoy41/mccoy41.github.io)
