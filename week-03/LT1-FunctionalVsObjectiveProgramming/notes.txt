@@ -1,0 +1,17 @@
+functional programming
+- function is the best!
+- harder to use
+
+good for mathematical operations and diagnostics
+in games procedural world generation or AI
+
+
+Object oriented programming
+- objects... Objects... OBJECTS!!!
+- easier to understand
+
+more generally useful (hopefully?)
+in games more of block building
+
+
+„- styl budování struktury a prvků počítačových programů - který počítá s výpočtem jako s hodnocením matematických funkcí a zabraňuje změnám stavu a proměnlivým datům. Je to deklarativní programovací paradigma, což znamená, že programování se provádí pomocí výrazů nebo prohlášení namísto prohlášení. “
