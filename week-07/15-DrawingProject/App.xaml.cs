@@ -15,7 +15,10 @@ namespace _15_DrawingProject
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                // Last enabled "desktop.MainWindow" will be displayed
+
                 desktop.MainWindow = new MainWindow();
+                desktop.MainWindow = new Window1();
             }
 
             base.OnFrameworkInitializationCompleted();

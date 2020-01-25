@@ -16,13 +16,14 @@ namespace _15_DrawingProject
 #endif
             var canvas = this.Get<Canvas>("canvas");
             var foxDraw = new FoxDraw(canvas);
-            Width = 600;
-            Height = 600;
+            int detail = 30;
+            int size = 20;
+            Width = Height = size * detail;
+            CanResize = false;
 
             // HERE GOES THE CODE
 
-            int detail = 30;
-            int size = 20;
+
             foxDraw.SetStrokeThicknes(2);
 
             for (int a = 0; a <= detail; a++)
