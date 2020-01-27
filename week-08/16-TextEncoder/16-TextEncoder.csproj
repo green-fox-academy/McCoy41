@@ -6,4 +6,10 @@
     <RootNamespace>_16_TextEncoder</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Update="template.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

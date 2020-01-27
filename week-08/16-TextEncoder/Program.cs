@@ -6,35 +6,63 @@ namespace _16_TextEncoder
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-            StreamReader read = new StreamReader(@"C:\Users\kkoma\OneDrive\Plocha\GreenFox\Projects\McCoy41\week-08\16-TextEncoder\source.txt");
-            
-            List<string> text = new List<string>();
-            List<string> sortedText = new List<string>();
+            List<string> txtFile = new List<string>();
+            List<char> charList = new List<char>();
+            charList = LoadFile("template", 0);
+            txtFile = LoadFile("template");
+
+            foreach (char character in charList)
+            {
+                Console.Write(character);
+            }
+            Console.WriteLine();
+            foreach (string line in txtFile)
+            {
+                Console.WriteLine(line);
+            }
+        }
+        
+        static List<string> LoadFile(string filename)
+        {
+            StreamReader readfile = new StreamReader($@"{filename}.txt");
+            List<string> output = new List<string>();
             string line;
-            do
+            try
             {
-                line = read.ReadLine();
-                text.Add(line);
-            } while (line != null);
-
-            for (int i = 0; i <text.Count; i++)
-            {
-                sortedText.Add(text[^(i + 1)]);
+                do
+                {
+                    line = readfile.ReadLine();
+                    output.Add(line);
+                } while (line != null) ;
             }
-            foreach (string listItem in sortedText)
+            catch (Exception e)
             {
-                Console.WriteLine(listItem);
+                Console.WriteLine(e.Message);
             }
-            read.Dispose();
-
-            StreamWriter write = new StreamWriter(@"C:\Users\kkoma\OneDrive\Plocha\GreenFox\Projects\McCoy41\week-08\16-TextEncoder\template.txt");
-            foreach (string listItem in sortedText)
+            return output;
+        }
+        static List<char> LoadFile(string filename, int decode)
+        {
+            StreamReader readfile = new StreamReader($@"{filename}.txt");
+            List<char> output = new List<char>();
+            char c;
+            try
             {
-                write.WriteLine(listItem);
+                do
+                {
+                    c = (char)(readfile.Read() - decode);
+                    output.Add(c);
+                    if (readfile.Peek() == -1) break;
+                } while (c != -decode - 1);
             }
-            write.Dispose();
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return output;
         }
     }
 }
