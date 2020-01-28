@@ -12,10 +12,8 @@ namespace _16_TextEncoder
             Console.WriteLine(File.ReadAllText("template.txt") + "\n"); // default text
             List<string> txtFile = new List<string>();
             List<char> charList = new List<char>();
-            charList = Encode(LoadChars("template"), EncodeType.CharCombine);
+            charList = Encode(LoadChars("template"), false, EncodeType.CharCombine);
             txtFile = Encode(LoadStrings("template"), EncodeType.StringCombine);
-            //char testchar = 'a';
-            //Console.WriteLine((char)(testchar+3)); -> writes d
             
             foreach (char character in charList)
             {
@@ -26,11 +24,14 @@ namespace _16_TextEncoder
             {
                 Console.WriteLine(line);
             }
+
+            SaveFile(charList, "chartest");
+            SaveFile(txtFile, "linetest");
         }
         
         static List<string> LoadStrings(string filename)
         {
-            StreamReader readfile = new StreamReader($@"{filename}.txt");
+            StreamReader readfile = new StreamReader($@".\..\..\..\{filename}.txt");
             List<string> output = new List<string>();
             string line;
             try
@@ -50,7 +51,7 @@ namespace _16_TextEncoder
         }
         static List<char> LoadChars(string filename)
         {
-            StreamReader readfile = new StreamReader($@"{filename}.txt");
+            StreamReader readfile = new StreamReader($@".\..\..\..\{filename}.txt");
             List<char> output = new List<char>();
             char c;
             try
@@ -83,19 +84,37 @@ namespace _16_TextEncoder
                     return input;
             }
         }
-        static List<char> Encode(List<char> input, EncodeType type)
+        static List<char> Encode(List<char> input, bool encode, EncodeType type)
         {
             switch (type)
             {
                 case EncodeType.CharMulti:
-                    return CharMulti(input, 2, true);
+                    return CharMulti(input, 2, encode);
                 case EncodeType.CharShift:
-                    return CharShift(input, 1, true);
+                    return CharShift(input, 1, encode);
                 case EncodeType.CharCombine:
-                    return CharMulti(CharShift(input, 1, true), 2, true);
+                    return CharMulti(CharShift(input, 1, encode), 2, encode);
                 default:
                     return input;
             }
+        }
+        static void SaveFile(List<string> input, string filename)
+        {
+            StreamWriter writefile = new StreamWriter($@".\..\..\..\{filename}.txt");
+            foreach (string line in input)
+            {
+                writefile.WriteLine(line);
+            }
+            writefile.Dispose();
+        }
+        static void SaveFile(List<char> input, string filename)
+        {
+            StreamWriter writefile = new StreamWriter($@".\..\..\..\{filename}.txt");
+            foreach (char character in input)
+            {
+                writefile.Write(character);
+            }
+            writefile.Dispose();
         }
         static List<string> StringMirror(List<string> input)
         {
