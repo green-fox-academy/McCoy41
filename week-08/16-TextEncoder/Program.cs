@@ -6,14 +6,17 @@ namespace _16_TextEncoder
 {
     class Program
     {
-        enum EncodeType { StringMirror, StringOrder, StringCombine, CharMulti, CharShift, None }
+        enum EncodeType { StringMirror, StringOrder, StringCombine, CharMulti, CharShift, CharCombine, None }
         static void Main(string[] args)
         {
+            Console.WriteLine(File.ReadAllText("template.txt") + "\n"); // default text
             List<string> txtFile = new List<string>();
             List<char> charList = new List<char>();
-            charList = LoadFile("template", 0);
-            txtFile = Encode(LoadFile("template"),EncodeType.StringCombine);
-
+            charList = Encode(LoadChars("template"), EncodeType.CharCombine);
+            txtFile = Encode(LoadStrings("template"), EncodeType.StringCombine);
+            //char testchar = 'a';
+            //Console.WriteLine((char)(testchar+3)); -> writes d
+            
             foreach (char character in charList)
             {
                 Console.Write(character);
@@ -25,7 +28,7 @@ namespace _16_TextEncoder
             }
         }
         
-        static List<string> LoadFile(string filename)
+        static List<string> LoadStrings(string filename)
         {
             StreamReader readfile = new StreamReader($@"{filename}.txt");
             List<string> output = new List<string>();
@@ -42,9 +45,10 @@ namespace _16_TextEncoder
             {
                 Console.WriteLine(e.Message);
             }
+            readfile.Dispose();
             return output;
         }
-        static List<char> LoadFile(string filename, int decode)
+        static List<char> LoadChars(string filename)
         {
             StreamReader readfile = new StreamReader($@"{filename}.txt");
             List<char> output = new List<char>();
@@ -53,15 +57,15 @@ namespace _16_TextEncoder
             {
                 do
                 {
-                    c = (char)(readfile.Read() - decode);
+                    c = (char)(readfile.Read());
                     output.Add(c);
-                    if (readfile.Peek() == -1) break;
-                } while (c != -decode - 1);
+                } while (readfile.Peek() != -1);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+            readfile.Dispose();
             return output;
         }
         static List<string> Encode(List<string> input, EncodeType type)
@@ -84,9 +88,11 @@ namespace _16_TextEncoder
             switch (type)
             {
                 case EncodeType.CharMulti:
-                    return input;
+                    return CharMulti(input, 2, true);
                 case EncodeType.CharShift:
-                    return input;
+                    return CharShift(input, 1, true);
+                case EncodeType.CharCombine:
+                    return CharMulti(CharShift(input, 1, true), 2, true);
                 default:
                     return input;
             }
@@ -121,6 +127,53 @@ namespace _16_TextEncoder
                 output.Add(input[i]);
             }
 
+            return output;
+        }
+        static List<char> CharMulti(List<char> input, int multiplier, bool encode)
+        {
+            if (multiplier < 2) return input;
+            List<char> output;
+            if (encode == true)
+            {
+                output = new List<char>((input.Count) * multiplier);
+                foreach (char character in input)
+                {
+                    for (int i = 0; i < multiplier; i++)
+                    {
+                        output.Add(character);
+                    }
+                }
+            }
+            else
+            {
+                output = new List<char>((input.Count) / multiplier);
+                for (int i = 0; i < input.Count; i += multiplier)
+                {
+                    output.Add(input[i]);
+                }
+            }
+            return output;
+        }
+        static List<char> CharShift(List<char> input, int modifier, bool encode)
+        {
+            if (modifier > 9999 || modifier < 0) return input;
+            List<char> output = new List<char>(input.Count);
+            if (encode == true)
+            {
+                foreach (char character in input)
+                {
+                    char newChar = (char)(character + modifier);
+                    output.Add(newChar);
+                }
+            }
+            else
+            {
+                foreach (char character in input)
+                {
+                    char newChar = (char)(character - modifier);
+                    output.Add(newChar);
+                }
+            }
             return output;
         }
     }
