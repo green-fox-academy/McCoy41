@@ -254,7 +254,7 @@ namespace _11_Calculator
                 Console.WriteLine("\n>> First number is bigger than second number!\n");
                 Console.WriteLine("// {0:0.000} > {1:0.000} //\n\n", numberList[0], numberList[1]);
             }
-            else if (numberList[0] > numberList[1])
+            else if (numberList[1] > numberList[0])
             {
                 Console.WriteLine("\n>> First number is smaller than second number!\n");
                 Console.WriteLine("// {0:0.000} < {1:0.000} //\n\n", numberList[0], numberList[1]);
