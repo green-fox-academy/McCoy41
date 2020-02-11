@@ -38,18 +38,32 @@ namespace _19_Dices
         {
             int attempts = 0;
             int[] dices = diceSet.GetCurrent();
-            
+            bool[] numOk = NumOkMap(dices, goal);
+
+            while (!numOk.SequenceEqual(Enumerable.Repeat(true, dices.Length).ToArray()))
+            {
+                for (int i = 0; i < dices.Length; i++)
+                {
+                    if (numOk[i] == false) diceSet.Reroll(i);
+                }
+                numOk = NumOkMap(dices, goal);
+                PrintStatus(diceSet);
+                attempts++;
+            }
+
+            return attempts;
+        }
+        static bool[] NumOkMap(int[] dices, int goal)
+        {
+            bool[] numOk = new bool[dices.Length];
+
             for (int i = 0; i < dices.Length; i++)
             {
-                while (dices[i] != goal)
-                {
-                    diceSet.Reroll(i);
-                    PrintStatus(diceSet);
-                    attempts++;
-                }
+                if (dices[i] == goal) numOk[i] = true;
+                else numOk[i] = false;
             }
-            
-            return attempts;
+
+            return numOk;
         }
     }
 }
