@@ -10,7 +10,7 @@ namespace _20_GasStation
         public string CompanyName;
         public float[] Prices;
 
-        public GasStation(StationSize size)
+        public GasStation(StationSize size, string company)
         {
             FuelTanks = new List<FuelReservoir>();
             FuelTanks.Add(new FuelReservoir(FuelType.Gasoline, size));
@@ -19,12 +19,20 @@ namespace _20_GasStation
             FuelTanks.Add(new FuelReservoir(FuelType.LPG, size));
             FuelTanks.Add(new FuelReservoir(FuelType.Hydrogen, size));
 
-            Prices = GetRandomPrices(1, 5, 5);
-            CompanyName = GetRandomCompanyName();
+            Prices = GetRandomPrices(1, 5, FuelTanks.Count);
+            CompanyName = company;
         }
 
+        public GasStation(string company)
+            : this(StationSize.Regular, company)
+        { }
+
+        public GasStation(StationSize size)
+            : this(size, GetRandomCompanyName())
+        { }
+
         public GasStation()
-            : this(StationSize.Regular)
+            : this(StationSize.Regular, GetRandomCompanyName())
         { }
 
         static float[] GetRandomPrices(int priceMin, int priceMax, int amount)
@@ -48,22 +56,16 @@ namespace _20_GasStation
             return companies[rndCompany.Next(0, companies.Length)];
         }
 
-        public static void PrintStatus(List<FuelReservoir> fuelTanks, float[] prices, string companyName)
+        public override string ToString()
         {
-            Console.WriteLine($"\nWelcome to {companyName} gas station\n");
-            Console.WriteLine("Prices are following:");
-            for (int i = 0; i < fuelTanks.Count; i++)
+            string text = $"\nWelcome to {CompanyName}!\n";
+            for (int i = 0; i < Prices.Length; i++)
             {
-                Console.WriteLine($"{fuelTanks[i].FuelType.ToString()}: {prices[i]} USD per unit");
+                text += $"\n{ FuelTanks[i].FuelType.ToString()} " +
+                        $"({FuelTanks[i].CurrentCapacity}/{FuelTanks[i].MaxCapacity})" +
+                        $"\nPrice: {Prices[i]:0.00} Cr. per unit";
             }
-            Console.WriteLine();
-            Console.WriteLine("The status of fueltanks is following:");
-            for (int i = 0; i < fuelTanks.Count; i++)
-            {
-                Console.WriteLine($"{fuelTanks[i].FuelType.ToString()}: {fuelTanks[i].CurrentCapacity}/" +
-                                  $"{fuelTanks[i].MaxCapacity}");
-            }
-            Console.WriteLine();
+            return text;
         }
     }
 }

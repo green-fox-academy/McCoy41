@@ -9,19 +9,24 @@ namespace _20_GasStation
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            GasStation station1 = new GasStation();
-            GasStation station2 = new GasStation(StationSize.Small);
-            GasStation station3 = new GasStation(StationSize.Regular);
-            GasStation station4 = new GasStation(StationSize.Large);
-            GasStation station5 = new GasStation(StationSize.Central);
+            GasStation station1 = new GasStation(StationSize.Small,"NoName");
+            Console.WriteLine(station1.ToString());
+            station1.FuelTanks[(int)FuelType.Gasoline].CurrentCapacity = 800;
+            station1.FuelTanks[(int)FuelType.Diesel].CurrentCapacity = 750;
+            station1.FuelTanks[(int)FuelType.Ethanol].CurrentCapacity = 950;
+            station1.FuelTanks[(int)FuelType.LPG].CurrentCapacity = 350;
+            station1.FuelTanks[(int)FuelType.Hydrogen].CurrentCapacity = 0;
+            Console.WriteLine(station1.ToString());
+            station1.CompanyName = "YesName";
+            Console.WriteLine(station1.ToString());
+            station1.Prices[(int)FuelType.Gasoline] = 2.59f;
+            station1.Prices[(int)FuelType.Diesel] = 2.42f;
+            station1.Prices[(int)FuelType.Ethanol] = 1.38f;
+            station1.Prices[(int)FuelType.LPG] = 1.09f;
+            station1.Prices[(int)FuelType.Hydrogen] = 4.2f;
+            Console.WriteLine(station1.ToString());
 
-            GasStation.PrintStatus(station1.FuelTanks, station1.Prices, station1.CompanyName);
-            GasStation.PrintStatus(station2.FuelTanks, station2.Prices, station2.CompanyName);
-            GasStation.PrintStatus(station3.FuelTanks, station3.Prices, station3.CompanyName);
-            GasStation.PrintStatus(station4.FuelTanks, station4.Prices, station4.CompanyName);
-            GasStation.PrintStatus(station5.FuelTanks, station5.Prices, station5.CompanyName);
-            GasStation.PrintStatus(station4.FuelTanks, station4.Prices, station4.CompanyName);
+
         }
     }
 }

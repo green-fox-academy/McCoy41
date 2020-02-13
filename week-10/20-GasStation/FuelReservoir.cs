@@ -5,8 +5,8 @@ namespace _20_GasStation
     public enum FuelType { Gasoline, Diesel, Ethanol, LPG, Hydrogen }
     internal class FuelReservoir
     {
-        public FuelType FuelType;
-        public int MaxCapacity;
+        public FuelType FuelType { get; }
+        public int MaxCapacity { get; }
         public int CurrentCapacity;
 
         public FuelReservoir(FuelType fuel, int capacity, int init)
