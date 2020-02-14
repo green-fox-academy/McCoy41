@@ -36,7 +36,7 @@ namespace _20_GasStation
             : this(fuel, GetCapacity(size), GetCapacity(size))
         { }
 
-        static int GetCapacity(Vehicle.Type vehicle)
+        public static int GetCapacity(Vehicle.Type vehicle)
         {
             switch (vehicle)
             {
@@ -53,7 +53,7 @@ namespace _20_GasStation
             }
         }
 
-        static int GetCapacity(GasStation.Size size)
+        public static int GetCapacity(GasStation.Size size)
         {
             switch (size)
             {

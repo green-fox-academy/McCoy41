@@ -9,12 +9,12 @@ namespace _20_GasStation
 
         static void Main(string[] args)
         {
-            GasStation station1 = new GasStation(GasStation.Size.Small,"McGass");
+            GasStation station1 = new GasStation(GasStation.Size.Large,"McGass");
             station1.EmptyTank(FuelReservoir.Type.Gasoline, 200);
             station1.EmptyTank(FuelReservoir.Type.Diesel, 250);
             station1.EmptyTank(FuelReservoir.Type.Ethanol, 50);
             station1.EmptyTank(FuelReservoir.Type.LPG, 650);
-            station1.EmptyTank(FuelReservoir.Type.Hydrogen, 1000);
+            station1.EmptyTank(FuelReservoir.Type.Hydrogen, 3000);
             Console.WriteLine(station1.ToString());
 
             for (int i = 0; i < 10; i++)
@@ -22,6 +22,20 @@ namespace _20_GasStation
                 Vehicle vehicle = new Vehicle();
                 Console.WriteLine(vehicle.ToString());
             }
+
+            Bike vehicle1 = new Bike();
+            Console.WriteLine(vehicle1.ToString());
+            vehicle1.Race();
+            vehicle1.Horn();
+            vehicle1.Refuel(station1,25);
+            vehicle1.Race();
+            vehicle1.Race();
+            vehicle1.Drive();
+
+            Cistern vehicle2 = new Cistern(FuelReservoir.Type.Hydrogen);
+            vehicle2.Horn();
+            vehicle2.SupplyFuel(station1);
+            Console.WriteLine(vehicle2.ToString());
 
         }
 

@@ -42,7 +42,7 @@ namespace _20_GasStation
             {
                 text += $"\n{ FuelTanks[i].FuelType.ToString()} " +
                         $"({FuelTanks[i].CurrentCapacity}/{FuelTanks[i].MaxCapacity})" +
-                        $"\nPrice: {Prices[i]:0.00} Cr. per unit";
+                        $"\nPrice: {Prices[i]:0.00} Cr. per {Program.defaultUnit} unit(s)";
             }
             return text;
         }

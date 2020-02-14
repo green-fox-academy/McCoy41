@@ -6,12 +6,12 @@ namespace _20_GasStation
     class Vehicle
     {
         public enum Type { Car, SportsCar, SUV, Bike, Truck, Cistern }
-        public enum Color { Black, DarkRed, Red, Yellow, SkyBlue, DarkBlue, Metallic, White }
+        public enum Color { Black, Dark_Red, Red, Yellow, Sky_Blue, Dark_Blue, Metallic, White }
         protected string VehicleType { get; }
         protected string VehicleModel { get; }
         protected string VehicleColor { get; }
         protected float FuelConsumption;
-        FuelReservoir FuelTank;
+        protected FuelReservoir FuelTank;
 
         public Vehicle(Type vehicle, string model, string color, FuelReservoir.Type fuel)
         {
@@ -35,6 +35,8 @@ namespace _20_GasStation
                     FuelConsumption = 1.0f * Program.defaultUnit;
                     break;
             }
+            if (vehicle == Type.Cistern) FuelTank.CurrentCapacity = FuelTank.MaxCapacity;
+            else FuelTank.CurrentCapacity = 3 * (int)FuelConsumption;
         }
 
         public Vehicle(Type vehicle, string model, Color color, FuelReservoir.Type fuel)
@@ -63,9 +65,68 @@ namespace _20_GasStation
 
         public override string ToString()
         {
-            return $"\nYou're now driving {VehicleColor.ToLower()} {VehicleModel}!\n" +
+            return $"\nYou're now driving {VehicleColor.ToLower().Replace("_"," ")} {VehicleModel}!\n" +
                    $"Vehicle type: {VehicleType} | Fuel type: {FuelTank.FuelType}\n" +
                    $"Fuel status: {FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity}";
+        }
+
+        public void Horn()
+        {
+            Console.WriteLine($"Your {VehicleColor.ToLower().Replace("_", " ")} {VehicleModel} is now honking!");
+        }
+
+        public void Drive()
+        {
+            if (FuelTank.CurrentCapacity == 0)
+            {
+                Console.WriteLine($"Your {VehicleColor.ToLower().Replace("_", " ")} {VehicleModel} majestically " +
+                                  $"stands in the middle of the road... " +
+                                  $"({FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity})");
+            }
+            else if (FuelConsumption > FuelTank.CurrentCapacity && FuelTank.CurrentCapacity > 0)
+            {
+                Console.WriteLine($"Your car has just run out of fuel. Thankfully, good people of the road " +
+                                  $"helped to push your car to the closest gas station. (you would have " +
+                                  $"{FuelTank.CurrentCapacity - (int)FuelConsumption}/{FuelTank.MaxCapacity})");
+                FuelTank.CurrentCapacity = 0;
+            }
+            
+            else
+            {
+                if (2 * FuelConsumption >= FuelTank.CurrentCapacity)
+                {
+                    Console.WriteLine($"You should visit the gas station, your fuel tank is running dry! " +
+                                      $"({FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity})");
+                }
+                Console.WriteLine($"You are cruising the land like a boss in your {VehicleColor.ToLower()} " +
+                                  $"{VehicleModel}! (-{(int)FuelConsumption} units of fuel)");
+                FuelTank.CurrentCapacity -= (int)FuelConsumption;
+            }
+        }
+
+        public void Refuel(GasStation station, uint amount)
+        {
+            if (amount + FuelTank.CurrentCapacity > FuelTank.MaxCapacity)
+            {
+                Refuel(station);
+            }
+            else if(amount > station.FuelTanks[(int)FuelTank.FuelType].CurrentCapacity)
+            {
+                Refuel(station, (uint)station.FuelTanks[(int)FuelTank.FuelType].CurrentCapacity);
+            }
+            else
+            {
+                Console.WriteLine($"You have bought {amount} units of {FuelTank.FuelType} for " +
+                                  $"{amount*station.Prices[(int)FuelTank.FuelType]/ Program.defaultUnit:0.00} Cr.!");
+                FuelTank.CurrentCapacity += (int)amount;
+                Console.WriteLine($"(your tank is now at {FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity})");
+                station.EmptyTank(FuelTank.FuelType, amount);
+            }
+        }
+
+        public void Refuel(GasStation station)
+        {
+            Refuel(station, (uint)(FuelTank.MaxCapacity - FuelTank.CurrentCapacity));
         }
     }
     
@@ -73,9 +134,7 @@ namespace _20_GasStation
     {
         public Car(string model, string color, FuelReservoir.Type fuel, Type type = Type.Car)
             : base(type, model, color, fuel)
-        {
-            
-        }
+        { }
 
         public Car(string model, Color color, FuelReservoir.Type fuel)
             : this(model, color.ToString(), fuel)
@@ -117,6 +176,46 @@ namespace _20_GasStation
         public SportsCar()
             : this(RandomGen.FuelType())
         { }
+
+        public void Race()
+        {
+            if (FuelTank.CurrentCapacity == 0)
+            {
+                Console.WriteLine($"Your {VehicleColor.ToLower().Replace("_", " ")} {VehicleModel} majestically " +
+                                  $"stands in the middle of the road... " +
+                                  $"({FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity})");
+            }
+            else if (2.5 * FuelConsumption > FuelTank.CurrentCapacity && FuelTank.CurrentCapacity > 0)
+            {
+                if(FuelConsumption < FuelTank.CurrentCapacity)
+                {
+                    Console.WriteLine($"You were too scared to race, as you were low on fuel " +
+                                      $"({FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity}), so instead you drove " +
+                                      $"your {VehicleColor.ToLower().Replace("_", " ")} {VehicleModel} to" +
+                                      $"the closest gas station. (-{(int)FuelConsumption} units of fuel)");
+                    FuelTank.CurrentCapacity -= (int)FuelConsumption;
+                }
+                else
+                {
+                    Console.WriteLine($"Your car has just run out of fuel. Thankfully, good people of the road " +
+                                      $"helped to push your car to the closest gas station. (you would have " +
+                                      $"{FuelTank.CurrentCapacity - (int)FuelConsumption}/{FuelTank.MaxCapacity})");
+                    FuelTank.CurrentCapacity = 0;
+                }
+            }
+            else
+            {
+                if (5 * FuelConsumption >= FuelTank.CurrentCapacity)
+                {
+                    Console.WriteLine($"You should visit the gas station, your fuel tank is running dry! " +
+                                      $"({FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity})");
+                }
+                Console.WriteLine($"You are blazing through the land in your {VehicleColor.ToLower()} " +
+                                  $"{VehicleModel}, aiming for new speed record! " +
+                                  $"(-{(int)(2.5 * FuelConsumption)} units of fuel)");
+                FuelTank.CurrentCapacity -= (int)(2.5 * FuelConsumption);
+            }
+        }
     }
 
     class SUV : Car
@@ -189,6 +288,36 @@ namespace _20_GasStation
         public Cistern()
             : this(RandomGen.FuelType())
         { }
+
+        public void SupplyFuel(GasStation station, uint amount)
+        {
+            if (amount == 0)
+            {
+                Console.WriteLine($"{station.CompanyName} gas station has it's " +
+                                  $"{FuelTank.FuelType.ToString().ToLower()} tank already full!");
+            }
+            else if (amount + station.FuelTanks[(int)FuelTank.FuelType].CurrentCapacity
+                     > station.FuelTanks[(int)FuelTank.FuelType].MaxCapacity)
+            {
+                SupplyFuel(station, (uint)(station.FuelTanks[(int)FuelTank.FuelType].MaxCapacity
+                           - station.FuelTanks[(int)FuelTank.FuelType].CurrentCapacity));
+            }
+
+            else
+            {
+                Console.WriteLine($"{station.CompanyName} gas station has bought from you {amount} units " +
+                                  $"of {FuelTank.FuelType.ToString().ToLower()} for " +
+                                  $"{amount * station.Prices[(int)FuelTank.FuelType] * 0.8 / Program.defaultUnit:0.00}" +
+                                  $" credits!");
+                FuelTank.CurrentCapacity -= (int)amount;
+                station.RefillTank(FuelTank.FuelType, amount);
+            }
+        }
+
+        public void SupplyFuel(GasStation station)
+        {
+            SupplyFuel(station, (uint)FuelReservoir.GetCapacity(GasStation.Size.Regular));
+        }
     }
 
     class Bike : Vehicle
@@ -207,11 +336,51 @@ namespace _20_GasStation
         { }
 
         public Bike(FuelReservoir.Type fuel)
-            : this(RandomGen.VehicleModel(Type.Car), fuel)
+            : this(RandomGen.VehicleModel(Type.Bike), fuel)
         { }
 
         public Bike()
             : this(RandomGen.FuelType())
         { }
+
+        public void Race()
+        {
+            if (FuelTank.CurrentCapacity == 0)
+            {
+                Console.WriteLine($"Your {VehicleColor.ToLower().Replace("_", " ")} {VehicleModel} majestically " +
+                                  $"stands in the middle of the road... " +
+                                  $"({FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity})");
+            }
+            else if (2 * FuelConsumption > FuelTank.CurrentCapacity && FuelTank.CurrentCapacity > 0)
+            {
+                if (FuelConsumption < FuelTank.CurrentCapacity)
+                {
+                    Console.WriteLine($"You were too scared to race, as you were low on fuel " +
+                                      $"({FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity}), so instead you drove " +
+                                      $"your {VehicleColor.ToLower().Replace("_", " ")} {VehicleModel} to" +
+                                      $"the closest gas station. (-{FuelConsumption} units of fuel)");
+                    FuelTank.CurrentCapacity -= (int)FuelConsumption;
+                }
+                else
+                {
+                    Console.WriteLine($"Your car has just run out of fuel. Thankfully, good people of the road " +
+                                      $"helped to push your car to the closest gas station. (you would have " +
+                                      $"{FuelTank.CurrentCapacity - (int)FuelConsumption}/{FuelTank.MaxCapacity})");
+                    FuelTank.CurrentCapacity = 0;
+                }
+            }
+            else
+            {
+                if (4 * FuelConsumption >= FuelTank.CurrentCapacity)
+                {
+                    Console.WriteLine($"You should visit the gas station, your fuel tank is running dry! " +
+                                      $"({FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity})");
+                }
+                Console.WriteLine($"You are blazing through the land in your {VehicleColor.ToLower()} " +
+                                  $"{VehicleModel}, aiming for new speed record! " +
+                                  $"(-{(int)(2 * FuelConsumption)} units of fuel)");
+                FuelTank.CurrentCapacity -= (int)(2 * FuelConsumption);
+            }
+        }
     }
 }
