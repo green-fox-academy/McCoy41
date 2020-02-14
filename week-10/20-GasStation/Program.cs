@@ -9,23 +9,30 @@ namespace _20_GasStation
 
         static void Main(string[] args)
         {
-            GasStation station1 = new GasStation(StationSize.Small,"NoName");
+            GasStation station1 = new GasStation(StationSize.Small);
             Console.WriteLine(station1.ToString());
-            station1.FuelTanks[(int)FuelType.Gasoline].CurrentCapacity = 800;
-            station1.FuelTanks[(int)FuelType.Diesel].CurrentCapacity = 750;
-            station1.FuelTanks[(int)FuelType.Ethanol].CurrentCapacity = 950;
-            station1.FuelTanks[(int)FuelType.LPG].CurrentCapacity = 350;
-            station1.FuelTanks[(int)FuelType.Hydrogen].CurrentCapacity = 0;
+            station1.EmptyTank(FuelType.Gasoline, 200);
+            station1.EmptyTank(FuelType.Diesel, 250);
+            station1.EmptyTank(FuelType.Ethanol, 50);
+            station1.EmptyTank(FuelType.LPG, 650);
+            station1.EmptyTank(FuelType.Hydrogen, 1200);
             Console.WriteLine(station1.ToString());
-            station1.CompanyName = "YesName";
+            station1.CompanyName = "McGas";
+            station1.RefillTank(200);
             Console.WriteLine(station1.ToString());
-            station1.Prices[(int)FuelType.Gasoline] = 2.59f;
-            station1.Prices[(int)FuelType.Diesel] = 2.42f;
-            station1.Prices[(int)FuelType.Ethanol] = 1.38f;
-            station1.Prices[(int)FuelType.LPG] = 1.09f;
-            station1.Prices[(int)FuelType.Hydrogen] = 4.2f;
+            station1.PriceUpdate(FuelType.Gasoline, 2.59f);
+            station1.PriceUpdate(FuelType.Diesel, 0.23f, true);
+            station1.PriceUpdate(FuelType.Ethanol, 0.5f, false);
+            station1.PriceUpdate(FuelType.LPG);
+            station1.PriceUpdate(FuelType.Hydrogen, 12.6f);
             Console.WriteLine(station1.ToString());
 
+            station1.PriceUpdate();
+            Console.WriteLine(station1.ToString());
+            station1.PriceUpdate(1.2f, true);
+            Console.WriteLine(station1.ToString());
+            station1.PriceUpdate(false);
+            Console.WriteLine(station1.ToString());
 
         }
     }
