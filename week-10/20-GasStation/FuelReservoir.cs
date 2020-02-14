@@ -2,58 +2,66 @@
 
 namespace _20_GasStation
 {
-    public enum FuelType { Gasoline, Diesel, Ethanol, LPG, Hydrogen }
     internal class FuelReservoir
     {
-        public FuelType FuelType { get; }
+        public enum Type { Gasoline, Diesel, Ethanol, LPG, Hydrogen }
+        public Type FuelType { get; }
         public int MaxCapacity { get; }
         public int CurrentCapacity;
 
-        public FuelReservoir(FuelType fuel, int capacity, int init)
+        public FuelReservoir(Type fuel, int capacity, int init)
         {
             FuelType = fuel;
             MaxCapacity = capacity;
             CurrentCapacity = init;
         }
 
-        public FuelReservoir(FuelType fuel, int capacity)
+        public FuelReservoir(Type fuel, int capacity)
             : this(fuel, capacity, 0)
         { }
 
-        public FuelReservoir(FuelType fuel, VehicleType vehicle)
-            : this(fuel, GetCapacity(vehicle))
+        public FuelReservoir(int capacity)
+            :this(RandomGen.FuelType(), capacity, 0)
         { }
 
-        public FuelReservoir(FuelType fuel, StationSize size)
+        public FuelReservoir(Vehicle.Type vehicle, Type fuel)
+            : this(fuel, GetCapacity(vehicle))
+        { }
+       
+        public FuelReservoir(Vehicle.Type vehicle)
+            : this(GetCapacity(vehicle))
+        { }
+
+        public FuelReservoir(GasStation.Size size, Type fuel)
             : this(fuel, GetCapacity(size), GetCapacity(size))
         { }
 
-        static int GetCapacity(VehicleType vehicle)
+        static int GetCapacity(Vehicle.Type vehicle)
         {
             switch (vehicle)
             {
-                case VehicleType.Bike:
+                case Vehicle.Type.Bike:
                     return 8 * Program.defaultUnit;
-                case VehicleType.SUV:
+                case Vehicle.Type.SUV:
                     return 15 * Program.defaultUnit;
-                case VehicleType.Truck:
+                case Vehicle.Type.Truck:
                     return 25 * Program.defaultUnit;
-                case VehicleType.Cistern:
-                    return GetCapacity(StationSize.Regular) + GetCapacity(VehicleType.Truck);
+                case Vehicle.Type.Cistern:
+                    return GetCapacity(GasStation.Size.Regular) + GetCapacity(Vehicle.Type.Truck);
                 default:
                     return 10 * Program.defaultUnit;
             }
         }
 
-        static int GetCapacity(StationSize size)
+        static int GetCapacity(GasStation.Size size)
         {
             switch (size)
             {
-                case StationSize.Small:
+                case GasStation.Size.Small:
                     return 100 * Program.defaultUnit;
-                case StationSize.Large:
+                case GasStation.Size.Large:
                     return 400 * Program.defaultUnit;
-                case StationSize.Central:
+                case GasStation.Size.Central:
                     return 800 * Program.defaultUnit;
                 default:
                     return 250 * Program.defaultUnit;
