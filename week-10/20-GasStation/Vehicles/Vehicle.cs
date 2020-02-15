@@ -23,16 +23,16 @@ namespace _20_GasStation.Vehicles
             switch (vehicle)
             {
                 case Type.SportsCar:
-                    FuelConsumption = 1.5f * Program.defaultUnit;
+                    FuelConsumption = 1.5f * GetInfo.defaultUnit;
                     break;
                 case Type.SUV:
-                    FuelConsumption = 1.3f * Program.defaultUnit;
+                    FuelConsumption = 1.3f * GetInfo.defaultUnit;
                     break;
                 case Type.Bike:
-                    FuelConsumption = 1.2f * Program.defaultUnit;
+                    FuelConsumption = 1.2f * GetInfo.defaultUnit;
                     break;
                 default:
-                    FuelConsumption = 1.0f * Program.defaultUnit;
+                    FuelConsumption = 1.0f * GetInfo.defaultUnit;
                     break;
             }
             if (vehicle == Type.Cistern) FuelTank.CurrentCapacity = FuelTank.MaxCapacity;
@@ -117,7 +117,7 @@ namespace _20_GasStation.Vehicles
             else
             {
                 Console.WriteLine($"You have bought {amount} units of {FuelTank.FuelType} for " +
-                                  $"{amount*station.Prices[(int)FuelTank.FuelType]/ Program.defaultUnit:0.00} Cr.!");
+                                  $"{amount*station.Prices[(int)FuelTank.FuelType]:0.00} Cr.!");
                 FuelTank.CurrentCapacity += (int)amount;
                 Console.WriteLine($"(your tank is now at {FuelTank.CurrentCapacity}/{FuelTank.MaxCapacity})");
                 station.EmptyTank(FuelTank.FuelType, amount);

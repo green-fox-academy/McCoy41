@@ -27,47 +27,15 @@ namespace _20_GasStation
         { }
 
         public FuelReservoir(Vehicle.Type vehicle, Type fuel)
-            : this(fuel, GetCapacity(vehicle))
+            : this(fuel, GetInfo.TankCapacity(vehicle))
         { }
        
         public FuelReservoir(Vehicle.Type vehicle)
-            : this(GetCapacity(vehicle))
+            : this(GetInfo.TankCapacity(vehicle))
         { }
 
         public FuelReservoir(GasStation.Size size, Type fuel)
-            : this(fuel, GetCapacity(size), GetCapacity(size))
+            : this(fuel, GetInfo.TankCapacity(size), GetInfo.TankCapacity(size))
         { }
-
-        public static int GetCapacity(Vehicle.Type vehicle)
-        {
-            switch (vehicle)
-            {
-                case Vehicle.Type.Bike:
-                    return 8 * Program.defaultUnit;
-                case Vehicle.Type.SUV:
-                    return 15 * Program.defaultUnit;
-                case Vehicle.Type.Truck:
-                    return 25 * Program.defaultUnit;
-                case Vehicle.Type.Cistern:
-                    return GetCapacity(GasStation.Size.Regular) + GetCapacity(Vehicle.Type.Truck);
-                default:
-                    return 10 * Program.defaultUnit;
-            }
-        }
-
-        public static int GetCapacity(GasStation.Size size)
-        {
-            switch (size)
-            {
-                case GasStation.Size.Small:
-                    return 100 * Program.defaultUnit;
-                case GasStation.Size.Large:
-                    return 400 * Program.defaultUnit;
-                case GasStation.Size.Central:
-                    return 800 * Program.defaultUnit;
-                default:
-                    return 250 * Program.defaultUnit;
-            }
-        }
     }
 }

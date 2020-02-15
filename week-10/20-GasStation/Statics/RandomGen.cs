@@ -5,7 +5,7 @@ namespace _20_GasStation.Statics
 {
     internal static class RandomGen
     {
-        // FuelReservoir.cs
+        // Fuel Reservoir
         public static FuelReservoir.Type FuelType()
         {
             Random fuelTypeRnd = new Random();
@@ -13,7 +13,7 @@ namespace _20_GasStation.Statics
             return (FuelReservoir.Type)fuelTypeRnd.Next(fuelTypes.Length);
         }
 
-        //GasStation.cs
+        // Gas Station
         public static GasStation.Size StationSize()
         {
             Random sizeRnd = new Random();
@@ -35,7 +35,7 @@ namespace _20_GasStation.Statics
             return companies[companyRnd.Next(companies.Length)];
         }
 
-        //Vehicle.cs
+        // Vehicles
         public static Vehicle.Type VehicleType()
         {
             Random vehicleRnd = new Random();

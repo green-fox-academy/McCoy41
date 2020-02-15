@@ -44,7 +44,7 @@ namespace _20_GasStation.Vehicles
             {
                 Console.WriteLine($"{station.CompanyName} gas station has bought from you {amount} units " +
                                   $"of {FuelTank.FuelType.ToString().ToLower()} for " +
-                                  $"{amount * station.Prices[(int)FuelTank.FuelType] * 0.8 / Program.defaultUnit:0.00}" +
+                                  $"{amount * station.Prices[(int)FuelTank.FuelType] * 0.8:0.00}" +
                                   $" credits!");
                 FuelTank.CurrentCapacity -= (int)amount;
                 station.RefillTank(FuelTank.FuelType, amount);
@@ -53,7 +53,7 @@ namespace _20_GasStation.Vehicles
 
         public void SupplyFuel(GasStation station)
         {
-            SupplyFuel(station, (uint)FuelReservoir.GetCapacity(GasStation.Size.Regular));
+            SupplyFuel(station, (uint)GetInfo.TankCapacity(GasStation.Size.Regular));
         }
     }
 }

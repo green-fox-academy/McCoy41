@@ -7,8 +7,6 @@ namespace _20_GasStation
     
     class Program
     {
-        public const int defaultUnit = 10;
-
         static void Main(string[] args)
         {
             /*
@@ -42,18 +40,136 @@ namespace _20_GasStation
             */
 
             Console.WriteLine("Welcome to GasStation excersise!");
+            Console.WriteLine("\nTo begin, you will have to first generate new station and your first vehicle...");
+            GasStation station = NewGasStation();
+            Vehicle vehicle;
+            GetInfo.Detail detail;
+            switch (GetInfo.VehicleType(out detail))
+            {
+                case Vehicle.Type.SportsCar:
+                    vehicle = NewSportsCar(detail);
+                    break;
+                case Vehicle.Type.SUV:
+                    vehicle = NewSUV(detail);
+                    break;
+                case Vehicle.Type.Bike:
+                    vehicle = NewBike(detail);
+                    break;
+                case Vehicle.Type.Truck:
+                    vehicle = NewTruck(detail);
+                    break;
+                case Vehicle.Type.Cistern:
+                    vehicle = NewCistern(detail);
+                    break;
+                case Vehicle.Type.Car:
+                default:
+                    vehicle = NewCar(detail);
+                    break;
+            }
 
-            GasStation station = new GasStation(GetInfo.StationSize(), GetInfo.StationName());
-
+            Console.WriteLine(vehicle.ToString());
             Console.WriteLine(station.ToString());
-
-
         }
 
-        static GasStation NewGasStation(GasStation.Size size, string name)
+        static Car NewCar(GetInfo.Detail detail)
         {
-            return new GasStation(size, name);
+            switch (detail)
+            {
+                case GetInfo.Detail.Fuel:
+                    return new Car(GetInfo.FuelType());
+                case GetInfo.Detail.WithModel:
+                    return new Car(GetInfo.VehicleModel(Vehicle.Type.Car),GetInfo.FuelType());
+                case GetInfo.Detail.WithColor:
+                    return new Car(GetInfo.VehicleModel(Vehicle.Type.Car), GetInfo.VehicleColor(),
+                                   GetInfo.FuelType());
+                default:
+                    return new Car();
+            }
         }
 
+        static SportsCar NewSportsCar(GetInfo.Detail detail)
+        {
+            switch (detail)
+            {
+                case GetInfo.Detail.Fuel:
+                    return new SportsCar(GetInfo.FuelType());
+                case GetInfo.Detail.WithModel:
+                    return new SportsCar(GetInfo.VehicleModel(Vehicle.Type.SportsCar),GetInfo.FuelType());
+                case GetInfo.Detail.WithColor:
+                    return new SportsCar(GetInfo.VehicleModel(Vehicle.Type.SportsCar), GetInfo.VehicleColor(),
+                                         GetInfo.FuelType());
+                default:
+                    return new SportsCar();
+            }
+        }
+        
+        static SUV NewSUV(GetInfo.Detail detail)
+        {
+            switch (detail)
+            {
+                case GetInfo.Detail.Fuel:
+                    return new SUV(GetInfo.FuelType());
+                case GetInfo.Detail.WithModel:
+                    return new SUV(GetInfo.VehicleModel(Vehicle.Type.SUV),GetInfo.FuelType());
+                case GetInfo.Detail.WithColor:
+                    return new SUV(GetInfo.VehicleModel(Vehicle.Type.SUV), GetInfo.VehicleColor(),
+                                   GetInfo.FuelType());
+                default:
+                    return new SUV();
+            }
+        }
+        
+        static Bike NewBike(GetInfo.Detail detail)
+        {
+            switch (detail)
+            {
+                case GetInfo.Detail.Fuel:
+                    return new Bike(GetInfo.FuelType());
+                case GetInfo.Detail.WithModel:
+                    return new Bike(GetInfo.VehicleModel(Vehicle.Type.Bike),GetInfo.FuelType());
+                case GetInfo.Detail.WithColor:
+                    return new Bike(GetInfo.VehicleModel(Vehicle.Type.Bike), GetInfo.VehicleColor(),
+                                    GetInfo.FuelType());
+                default:
+                    return new Bike();
+            }
+        }
+        
+        static Truck NewTruck(GetInfo.Detail detail)
+        {
+            switch (detail)
+            {
+                case GetInfo.Detail.Fuel:
+                    return new Truck(GetInfo.FuelType());
+                case GetInfo.Detail.WithModel:
+                    return new Truck(GetInfo.VehicleModel(Vehicle.Type.Truck),GetInfo.FuelType());
+                case GetInfo.Detail.WithColor:
+                    return new Truck(GetInfo.VehicleModel(Vehicle.Type.Truck), GetInfo.VehicleColor(),
+                                     GetInfo.FuelType());
+                default:
+                    return new Truck();
+            }
+        }
+
+        static Truck NewCistern(GetInfo.Detail detail)
+        {
+            switch (detail)
+            {
+                case GetInfo.Detail.Fuel:
+                    return new Cistern(GetInfo.FuelType());
+                case GetInfo.Detail.WithModel:
+                    return new Cistern(GetInfo.VehicleModel(Vehicle.Type.Cistern), GetInfo.FuelType());
+                case GetInfo.Detail.WithColor:
+                    return new Cistern(GetInfo.VehicleModel(Vehicle.Type.Cistern), GetInfo.VehicleColor(),
+                                       GetInfo.FuelType());
+                default:
+                    return new Cistern();
+            }
+        }
+
+        static GasStation NewGasStation()
+        {
+            return new GasStation(GetInfo.StationSize(), GetInfo.StationName());
+        }
     }
 }
