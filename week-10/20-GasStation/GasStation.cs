@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _20_GasStation.Vehicles;
 
 namespace _20_GasStation
 {
@@ -122,7 +123,7 @@ namespace _20_GasStation
             {
                 FuelTanks[(int)fuel].CurrentCapacity = 0;
                 Console.WriteLine($"WARNING: {fuel.ToString()} tank is empty!" +
-                                  $"{(amountNew == 0 ? "" : $"(status of tank would be {amountNew})")}");
+                                  $"{(amountNew == 0 ? "" : $" (status of tank would be {amountNew})")}");
             }
             else FuelTanks[(int)fuel].CurrentCapacity = amountNew;
         }

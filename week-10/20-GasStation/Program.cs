@@ -1,4 +1,5 @@
 ﻿using System;
+using _20_GasStation.Vehicles;
 
 namespace _20_GasStation
 {
@@ -14,7 +15,7 @@ namespace _20_GasStation
             station1.EmptyTank(FuelReservoir.Type.Diesel, 250);
             station1.EmptyTank(FuelReservoir.Type.Ethanol, 50);
             station1.EmptyTank(FuelReservoir.Type.LPG, 650);
-            station1.EmptyTank(FuelReservoir.Type.Hydrogen, 3000);
+            station1.EmptyTank(FuelReservoir.Type.Hydrogen, 5000);
             Console.WriteLine(station1.ToString());
 
             for (int i = 0; i < 10; i++)
