@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using _20_GasStation.Statics;
 
 namespace _20_GasStation.Vehicles
 {

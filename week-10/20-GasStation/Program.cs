@@ -1,5 +1,6 @@
 ﻿using System;
 using _20_GasStation.Vehicles;
+using _20_GasStation.Statics;
 
 namespace _20_GasStation
 {
@@ -10,6 +11,7 @@ namespace _20_GasStation
 
         static void Main(string[] args)
         {
+            /*
             GasStation station1 = new GasStation(GasStation.Size.Large,"McGass");
             station1.EmptyTank(FuelReservoir.Type.Gasoline, 200);
             station1.EmptyTank(FuelReservoir.Type.Diesel, 250);
@@ -37,7 +39,20 @@ namespace _20_GasStation
             vehicle2.Horn();
             vehicle2.SupplyFuel(station1);
             Console.WriteLine(vehicle2.ToString());
+            */
 
+            Console.WriteLine("Welcome to GasStation excersise!");
+
+            GasStation station = new GasStation(GetInfo.StationSize(), GetInfo.StationName());
+
+            Console.WriteLine(station.ToString());
+
+
+        }
+
+        static GasStation NewGasStation(GasStation.Size size, string name)
+        {
+            return new GasStation(size, name);
         }
 
     }

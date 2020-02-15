@@ -1,7 +1,7 @@
 ﻿using System;
 using _20_GasStation.Vehicles;
 
-namespace _20_GasStation
+namespace _20_GasStation.Statics
 {
     internal static class RandomGen
     {
