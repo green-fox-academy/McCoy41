@@ -30,17 +30,11 @@ namespace _23_Dominoes
         {
             if (obj is Domino)
             {
-                if (!(((Domino)obj).Value[0] == Value[0]))
+                if (((Domino)obj).Value[0] == Value[0])
                 {
-                    if (((Domino)obj).Value[0] > Value[0]) return -1;
-                    else return 1;
+                    return Value[1] - ((Domino)obj).Value[1];
                 }
-                else if (!(((Domino)obj).Value[1] == Value[1]))
-                {
-                    if (((Domino)obj).Value[1] > Value[1]) return -1;
-                    else return 1;
-                }
-                else return 0;
+                return Value[0] - ((Domino)obj).Value[0];
             }
             else return 0;
         }

@@ -7,7 +7,10 @@ namespace _23_Dominoes
     public static class DefaultValues
     {
         //Domino Numbers
-        public static readonly int min = 0;
-        public static readonly int max = 9;
+        public const int min = 0;
+        public const int max = 9;
+
+        //DominoSet Length
+        public const int maxCount = 50;
     }
 }

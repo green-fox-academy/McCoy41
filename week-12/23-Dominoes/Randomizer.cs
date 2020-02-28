@@ -12,7 +12,7 @@ namespace _23_Dominoes
             return rndVal.Next(DefaultValues.min, DefaultValues.max + 1);
         }
 
-        public static int RndCount(int maxCount)
+        public static int RndCount(int maxCount = DefaultValues.maxCount)
         {
             Random rndCount = new Random();
             return rndCount.Next(1, maxCount + 1);
