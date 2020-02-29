@@ -10,7 +10,7 @@ namespace _24_CountLetters
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Please insert string (or sentence) to process:");
             string input = Console.ReadLine().Replace(" ", "").ToUpper();
 
             Console.WriteLine(ToString(CountLetters(input)));
@@ -22,7 +22,7 @@ namespace _24_CountLetters
 
             foreach (var item in input)
             {
-                output += $" {item.Key} | {item.Value}\n";
+                output += $" {item.Key} | {item.Value} occurence(s)\n";
             }
             return output;
         }

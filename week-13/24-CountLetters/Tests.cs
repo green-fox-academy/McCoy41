@@ -18,7 +18,7 @@ namespace _24_CountLetters
         {
             var input = new Dictionary<char, uint>();
             input.Add('A', 5);
-            Assert.Equal(" A | 5\n", Program.ToString(input));
+            Assert.Equal(" A | 5 occurence(s)\n", Program.ToString(input));
         }
 
         [Fact]
@@ -43,6 +43,7 @@ namespace _24_CountLetters
         public void TestInput2()
         {
             var expected = new Dictionary<char, uint>();
+            expected.Add('!', 3);
             expected.Add('A', 1);
             expected.Add('D', 1);
             expected.Add('E', 1);
@@ -50,14 +51,13 @@ namespace _24_CountLetters
             expected.Add('I', 2);
             expected.Add('R', 2);
             expected.Add('T', 2);
-            expected.Add('!', 3);
             Assert.Equal(expected, Program.CountLetters("Hit it harder!!!"));
         }
 
         [Fact]
         public void TestSort()
         {
-            Assert.Equal("ABCD", Program.Sort("DACB"));
+            Assert.Equal("!DGIN", Program.Sort("DING!"));
         }
     }
 }
