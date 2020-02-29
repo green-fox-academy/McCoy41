@@ -7,17 +7,26 @@ namespace _23_Dominoes
     {
         static void Main(string[] args)
         {
-            DominoSet dominos = new DominoSet();
+            DominoSet dominos1 = new DominoSet();
             Console.WriteLine("\nGenerated List:");
-            Console.WriteLine(dominos);
+            Console.WriteLine(dominos1);
             
-            dominos.Sort();
+            dominos1.Sort();
             Console.WriteLine("\nSorted List:");
-            Console.WriteLine(dominos);
+            Console.WriteLine(dominos1);
             
-            dominos.Sort(true);
+            dominos1.Sort(true);
             Console.WriteLine("\nSorted List (with rotation):");
-            Console.WriteLine(dominos);
+            Console.WriteLine(dominos1);
+
+            DominoSet dominos2 = new DominoSet(false);
+            Console.WriteLine("\nGenerated List:");
+            Console.WriteLine(dominos2);
+            dominos2.ChainDominos(out DominoSet chainOk, out DominoSet chainNotOk);
+            Console.WriteLine("\nConnected Pieces:");
+            Console.WriteLine(chainOk);
+            Console.WriteLine("\nExtra Pieces:");
+            Console.WriteLine(chainNotOk);
 
         }
     }

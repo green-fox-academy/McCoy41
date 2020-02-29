@@ -69,12 +69,77 @@ namespace _23_Dominoes
             {
                 for (int i = 0; i < Dominos.Count; i++)
                 {
-                    if (Dominos[i].Value[0] > Dominos[i].Value[1]) Dominos[i] = Dominos[i].Rotate();
+                    if (Dominos[i].Value[0] > Dominos[i].Value[1])
+                    {
+                        Dominos[i] = Dominos[i].Rotate();
+                    }
                 }
             }
 
             Dominos.Sort();
         }
+
+        public void ChainDominos(out DominoSet connected, out DominoSet extra)
+        {
+            List<Domino> dominosIn = Dominos;
+            List<Domino> dominosOut = new List<Domino>(Dominos.Count);
+            int first = GetFirstPiece();
+            dominosOut.Add(RotateFirstPiece() ? dominosIn[first].Rotate() : dominosIn[first]);
+            dominosIn.RemoveAt(first);
+
+            bool matchFound;
+            do
+            {
+                matchFound = false;
+                for (int i = 0; i < dominosIn.Count; i++)
+                {
+                    if (dominosOut[dominosOut.Count - 1].Value[1] == dominosIn[i].Value[0])
+                    {
+                        dominosOut.Add(dominosIn[i]);
+                        dominosIn.RemoveAt(i);
+                        matchFound = true;
+                        break;
+                    }
+                    if (dominosOut[dominosOut.Count - 1].Value[1] == dominosIn[i].Value[1])
+                    {
+                        dominosOut.Add(dominosIn[i].Rotate());
+                        dominosIn.RemoveAt(i);
+                        matchFound = true;
+                        break;
+                    }
+                }
+            } while (matchFound);
+
+            connected = new DominoSet(dominosOut);
+            extra = new DominoSet(dominosIn);
+            extra.Sort(true);
+        }
+
+        int GetFirstPiece()
+        {
+            int index;
+            Console.Write("Please specify first piece: ");
+            try
+            {
+                index = Convert.ToInt32(Console.ReadLine().Trim());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Input couldn't be converted to a number!");
+                index = 1;
+            }
+
+            if (index - 1 < 0 || index - 1 >= Dominos.Count) index = 1;
+            return index - 1;
+        }
+
+        bool RotateFirstPiece()
+        {
+            Console.WriteLine("Would you like to rotate the first piece? (Y/N)");
+            if (Console.ReadKey().Key == ConsoleKey.Y) return true;
+            else return false;
+        }
+        
 
 
         // Required for IList<Domino>
