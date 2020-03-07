@@ -18,6 +18,7 @@ _For knowledge, press **Back**. For bugs, keep browsing..._
 - [Personal Webpage repository](https://github.com/McCoy41/mccoy41.github.io)
   - the webpage can be found [HERE](https://mccoy41.github.io/)
 - [ToDo App repository](https://github.com/McCoy41/todo-app)
+- [Wanderer repository](https://github.com/McCoy41/wanderer-cs)
 
 ## About
 This repository has been created as part of the Part-Time course here in GreenFox. Future projects should be created in **C#** programming language.
